@@ -11,6 +11,8 @@
 
     <modules>
         <module>recommender</module>
+        <module>businessServer</module>
+
     </modules>
 
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>MovieRecommendSystem</artifactId>
+        <groupId>com.zyf</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>recommender</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>DataLoader</module>
+        <module>OfflineRecommender</module>
+    </modules>
+
+    <!--为所有的推荐模块（子项目）声明Spark相关依赖
+        只声明但不引入依赖，子项目如果依赖自行引入，版本不需要再定义-->
+    <dependencyManagement>
+    <dependencies>
+        <!-- 引入Spark相关的Jar包 -->
+         <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-graphx_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+    </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <!--声明并引入recommender的所有子项目需要的插件-->
+        <plugins>
+            <!--用于 scala 程序的编译的插件-->
+            <plugin>
+                <!-- 父项目MovieRecommendSystem已声明该plugin的版本信息3.2.2，子项目在引入的时候，不用声明版本和配置 -->
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
